@@ -80,21 +80,19 @@
     </form>
     <button id = "index-btn">決定</button>
   
-    <script src="my_util.js"></script>
-    <h3>予約一覧</h3>
-    <ul id="user_list">
-      <!-- ここに出力 -->
-    </ul>
-
-    <h3>勤務希望一覧</h3>
-    <ul id="staff_list">
-      <!-- ここに出力 -->
-    </ul>
-
-    <div class="form-text-field-part">
+    
+    <div class="matching-form">
       <form>
+        <b>予約一覧</b>
+        <ul id="user_list">
+          <!-- ここに出力 -->
+        </ul>
+        <b>勤務希望一覧</b>
+        <ul id="staff_list">
+          <!-- ここに出力 -->
+        </ul>
+        <button type="button" class="submit_button">送信</button>
       </form>
-      <button type="button" class="submit_button">送信</button>
     </div>
     
     <script>
@@ -104,6 +102,7 @@
         request_reservation_list();
       });
 
+      // リスト取得
       const request_reservation_list = () => {
         // フォームから年情報取得
         const yearform = document.yearform.year;
@@ -133,7 +132,7 @@
           user_target = $('#user_list');
           for(var i in data.body.user) {
             // <input type="checkbox" name="food" value="1">焼肉
-            var content1 = '<input type="checkbox" name="reservation" value=' + String(data.body.user[i].user_id) + '>' + data.body.user[i].area + data.body.user[i].start ;   
+            var content1 = '<input type="checkbox" name="reservation" value=' + String(data.body.user[i].id) + '>' + data.body.user[i].area + data.body.user[i].start ;   
             var text = content1;
             $(user_target).append(text);
           }
@@ -147,6 +146,29 @@
           }
         });
       };
+      
+      // マッチング対象のID送信
+      $(function () {
+        $(document).on('click', '.matching-form .submit_button', function () {
+          var matching = {};
+          $(this).closest('form').find('[name=reservation]:checked').each(function () {
+            var ids = $(this).val();
+            matching["matching_id"] = ids;
+          });
+
+        let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/matchingFunction";   
+        
+        fetch(request_url, {
+          method: 'POST',
+          mode: 'cors',
+          body: JSON.stringify(matching)
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert(data);
+        })
+        });
+      });
       
     </script>
 </body>
