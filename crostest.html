@@ -80,12 +80,13 @@
     </form>
     <button id = "index-btn">決定</button>
   
-    <h2>予約一覧</h2>
     <script src="my_util.js"></script>
+    <h3>予約一覧</h3>
     <ul id="user_list">
       <!-- ここに出力 -->
     </ul>
 
+    <h3>勤務希望一覧</h3>
     <ul id="staff_list">
       <!-- ここに出力 -->
     </ul>
@@ -132,12 +133,18 @@
           user_target = $('#user_list');
           for(var i in data.body.user) {
             // <input type="checkbox" name="food" value="1">焼肉
-            var content1 = '<input type="checkbox" name="reservation" value=' + String(data.body.staff[i].staff_id) + '>' + data.body.staff[i].area + data.body.staff[i].start ;   
+            var content1 = '<input type="checkbox" name="reservation" value=' + String(data.body.user[i].user_id) + '>' + data.body.user[i].area + data.body.user[i].start ;   
             var text = content1;
             $(user_target).append(text);
           }
 
           staff_target = $('#staff_list')
+          for(var i in data.body.user) {
+            // <input type="checkbox" name="food" value="1">焼肉
+            var content1 = '<input type="checkbox" name="reservation" value=' + String(data.body.staff[i].staff_id) + '>' + data.body.staff[i].area + data.body.staff[i].start ;   
+            var text = content1;
+            $(staff_target).append(text);
+          }
         });
       };
       
