@@ -211,16 +211,13 @@
       // マッチング結果のID送信
       $(function () {
         $(document).on('click', '.matching_select .submit_button', function () {
-          var matching = {};
+          var ids = [];
           $(this).closest('form').find('[name=reservation]:checked').each(function () {
-            var ids = $(this).val();
-            console.log(ids[1]);
-            matching["matching_id"] = ids;
+            ids.push($(this).val());
           });
           
-          parameter = encodeURI(matching);
-          let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/matchingFunction?param1=";   
-          request_url = request_url + parameter;
+          let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/matchingFunction?";   
+          request_url = request_url + 'yoyaku_id=' + ids[0] + '&staff_id=' + ids[1];
           
           fetch(request_url, {mode: 'cors'})
           .then(response => response.json())
