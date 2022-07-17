@@ -3,171 +3,133 @@
 <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>yoyaku_system</title>
 </head>
 <body>
     <h1>マッチング</h1>
     <p>日付を選択してください</p>
-    <form name="yearform">
+    <!-- カレンダー入力対応 -->
+    <form name="yearform"> 
       <select name="year">
         <option value="">-</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-        <option value="2026">2026</option>
-        <option value="2027">2027</option>
-        <option value="2028">2028</option>
-        <option value="2029">2029</option>
-        <option value="2030">2030</option>
+        <option value="2020">2020年</option>
+        <option value="2021">2021年</option>
+        <option value="2022">2022年</option>
+        <option value="2023">2023年</option>
+        <option value="2024">2024年</option>
+        <option value="2025">2025年</option>
+        <option value="2026">2026年</option>
+        <option value="2027">2027年</option>
+        <option value="2028">2028年</option>
+        <option value="2029">2029年</option>
+        <option value="2030">2030年</option>
       </select>
     </form>
     <form name="monthform">
       <select name="month">
         <option value="">-</option>
-        <option value="01">1</option>
-        <option value="02">2</option>
-        <option value="03">3</option>
-        <option value="04">4</option>
-        <option value="05">5</option>
-        <option value="06">6</option>
-        <option value="07">7</option>
-        <option value="08">8</option>
-        <option value="09">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
+        <option value="01">1月</option>
+        <option value="02">2月</option>
+        <option value="03">3月</option>
+        <option value="04">4月</option>
+        <option value="05">5月</option>
+        <option value="06">6月</option>
+        <option value="07">7月</option>
+        <option value="08">8月</option>
+        <option value="09">9月</option>
+        <option value="10">10月</option>
+        <option value="11">11月</option>
+        <option value="12">12月</option>
       </select>
     </form>
 
     <form name="dayform">
       <select name="day">
         <option value="">-</option>
-        <option value="01">1</option>
-        <option value="02">2</option>
-        <option value="03">3</option>
-        <option value="04">4</option>
-        <option value="05">5</option>
-        <option value="06">6</option>
-        <option value="07">7</option>
-        <option value="08">8</option>
-        <option value="09">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
-        <option value="24">24</option>
-        <option value="25">25</option>
-        <option value="26">26</option>
-        <option value="27">27</option>
-        <option value="28">28</option>
-        <option value="29">29</option>
-        <option value="30">30</option>
-        <option value="31">31</option>
+        <option value="01">1日日</option>
+        <option value="02">2日</option>
+        <option value="03">3日</option>
+        <option value="04">4日</option>
+        <option value="05">5日</option>
+        <option value="06">6日</option>
+        <option value="07">7日</option>
+        <option value="08">8日</option>
+        <option value="09">9日</option>
+        <option value="10">10日</option>
+        <option value="11">11日</option>
+        <option value="12">12日</option>
+        <option value="13">13日</option>
+        <option value="14">14日</option>
+        <option value="15">15日</option>
+        <option value="16">16日</option>
+        <option value="17">17日</option>
+        <option value="18">18日</option>
+        <option value="19">19日</option>
+        <option value="20">20日</option>
+        <option value="21">21日</option>
+        <option value="22">22日</option>
+        <option value="23">23日</option>
+        <option value="24">24日</option>
+        <option value="25">25日</option>
+        <option value="26">26日</option>
+        <option value="27">27日</option>
+        <option value="28">28日</option>
+        <option value="29">29日</option>
+        <option value="30">30日</option>
+        <option value="31">31日</option>
       </select>
     </form>
-    <button id = "index-btn">決定</button>
+    <button id = "index-btn" class="btn btn-outline-success">確定</button>
 
     <div class="matching_select">
       <form>
-        <table>
+        <table class="box-container">
           <tr id="user_table">
             <td>
-              <table border="1">
+              <table class="table user_table">
                 <tr id="user_checkbox">
-                  <td>選択</td>          
+                  <td class="border border-dark">選択</td>          
                 </tr>
                 <tr id="user_name">
-                  <td>利用者名</td>     
+                  <td class="border border-dark">利用者名</td>     
                 </tr>
                 <tr id="user_area">
-                  <td>目的地</td> 
+                  <td class="border border-dark">目的地</td> 
                 </tr>  
                 <tr id="user_start">
-                  <td>開始時間</td>  
+                  <td class="border border-dark">開始時間</td>  
                 </tr>
                 <tr id="user_end">
-                  <td>終了時間</td>       
+                  <td class="border border-dark">終了時間</td>       
                 </tr>
               </table>
             </td>
             <td>
-              <table border="1">
+              <table class="table staff_table">
                 <tr id="staff_checkbox">  
-                  <td>選択</td>  
+                  <td class="border border-dark">選択</td>  
                 </tr>
                 <tr id="staff_name">
-                  <td>スタッフ名</td> 
+                  <td class="border border-dark">スタッフ名</td> 
                 </tr>
                 <tr id="staff_area">
-                  <td>勤務希望エリア</td> 
+                  <td class="border border-dark">勤務希望エリア</td> 
                 </tr>  
                 <tr id="staff_start">
-                  <td>勤務開始時間</td> 
+                  <td class="border border-dark">勤務開始時間</td> 
                 </tr>
                 <tr id="staff_end">    
-                  <td>勤務終了時間</td>  
+                  <td class="border border-dark">勤務終了時間</td>  
                 </tr>
+              </table>
             </td>
           </tr>
         </table>
-        <button type="button" class="submit_button">送信</button>
+        <button type="button" class="submit_button display btn btn-outline-success">確定</button>
       </form>
     </div>
-    <!-- <table>
-      <tr id="user_table">
-        <td>
-          <table border="1">
-            <tr id="user_checkbox">
-              <td>選択</td>          
-            </tr>
-            <tr id="user_name">
-              <td>利用者名</td>     
-            </tr>
-            <tr id="user_area">
-              <td>目的地</td> 
-            </tr>  
-            <tr id="user_start">
-              <td>開始時間</td>  
-            </tr>
-            <tr id="user_end">
-              <td>終了時間</td>       
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table border="1">
-            <tr id="staff_checkbox">  
-              <td>選択</td>  
-            </tr>
-            <tr id="staff_name">
-              <td>スタッフ名</td> 
-            </tr>
-            <tr id="staff_area">
-              <td>勤務希望エリア</td> 
-            </tr>  
-            <tr id="staff_start">
-              <td>勤務開始時間</td> 
-            </tr>
-            <tr id="staff_end">    
-              <td>勤務終了時間</td>  
-            </tr>
-        </td>
-      </tr>
-    </table> -->
   
     <script>
       var btn = document.getElementById('index-btn');
@@ -202,11 +164,11 @@
         .then(data => {
           // let output_label = document.getElementById("output_label");
           // output_label.innerText = data["body"][0]["area"]
+          console.log(data);
           createUserTable(data);
           createStaffTable(data);
-          console.log(data);
-        });
-      };
+          
+      })};
       
       // マッチング結果のID送信
       $(function () {
@@ -222,7 +184,10 @@
           fetch(request_url, {mode: 'cors'})
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            if (data.statusCode == 200){
+              window.alert('マッチングに成功しました');
+              location.reload();
+            };
           })
         });
       });
@@ -235,11 +200,11 @@
         user_end = $('#user_end');
         for(var i in data.body.user) {
             // <input type="checkbox" name="food" value="1">焼肉
-            var user_checkbox_text = '<th><input type="checkbox" name="reservation" value=' + String(data.body.user[i].id) + '></th>';   
-            var user_name_text = '<td>' + data.body.user[i].user_name + '</td>';
-            var user_area_text = '<td>' + data.body.user[i].area + '</td>';
-            var user_start_text = '<td>' + data.body.user[i].start + '</td>';
-            var user_end_text = '<td>' + data.body.user[i].end + '</td>';
+            var user_checkbox_text = '<th class="border table-success border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.user[i].id) + '></th>';   
+            var user_name_text = '<td class="border table-success border-dark">' + data.body.user[i].user_name + '</td>';
+            var user_area_text = '<td class="border table-success border-dark">' + data.body.user[i].area + '</td>';
+            var user_start_text = '<td class="border table-success border-dark">' + extractDate(data.body.user[i].start) + '</td>';
+            var user_end_text = '<td class="border table-success border-dark">' + extractDate(data.body.user[i].end) + '</td>';
 
             $(user_checkbox).append(user_checkbox_text);
             $(user_name).append(user_name_text);
@@ -257,11 +222,11 @@
         staff_end = $('#staff_end');
         for(var i in data.body.staff) {
             // <input type="checkbox" name="food" value="1">焼肉
-            var staff_checkbox_text = '<th><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].staff_id) + '></th>';   
-            var staff_name_text = '<td>' + data.body.staff[i].staff_name + '</td>';
-            var staff_area_text = '<td>' + data.body.staff[i].area + '</td>';
-            var staff_start_text = '<td>' + data.body.staff[i].start + '</td>';
-            var staff_end_text = '<td>' + data.body.staff[i].end + '</td>';
+            var staff_checkbox_text = '<th class="border table-info border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].staff_id) + '></th>';   
+            var staff_name_text = '<td class="border table-info border-dark">' + data.body.staff[i].staff_name + '</td>';
+            var staff_area_text = '<td class="border table-info border-dark">' + data.body.staff[i].area + '</td>';
+            var staff_start_text = '<td class="border table-info border-dark">' + extractDate(data.body.staff[i].start) + '</td>';
+            var staff_end_text = '<td class="border table-info border-dark">' + extractDate(data.body.staff[i].end) + '</td>';
 
             $(staff_checkbox).append(staff_checkbox_text);
             $(staff_name).append(staff_name_text);
@@ -271,6 +236,11 @@
           }
       };
 
+      function extractDate(date) {
+        var time = date.substr(8);
+        time = time + '時';
+        return time
+      }
 
       
     </script>

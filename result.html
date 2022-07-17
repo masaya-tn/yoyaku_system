@@ -24,8 +24,16 @@
         console.log(data)
         user_target = $('#user_list');
         for(var i in data.body) {
-          var text = '<p>' + data.body[i].area +'</p>'
-          $(result_target).append(text);
+          var user_name_text = '<p>' + '利用者名:' + data.body[i].user_name +'</p>'
+          var staff_name_text = '<p>' + 'スタッフ名' + data.body[i].staff_name +'</p>'
+          var area_text = '<p>' + 'エリア' + data.body[i].area +'</p>'
+          var start_text = '<p>' + '開始時間' + data.body[i].start +'</p>'
+          var end_text = '<p>' + '終了時間' + data.body[i].end +'</p>'
+          $(result_target).append(user_name_text);
+          $(result_target).append(staff_name_text);
+          $(result_target).append(area_text);
+          $(result_target).append(start_text);
+          $(result_target).append(end_text);
         }
       });
     };
