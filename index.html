@@ -178,16 +178,20 @@
             ids.push($(this).val());
           });
           
+          // staff_idにはスタッフの予約のIDが格納される
           let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/matchingFunction?";   
           request_url = request_url + 'yoyaku_id=' + ids[0] + '&staff_id=' + ids[1];
           
           fetch(request_url, {mode: 'cors'})
           .then(response => response.json())
           .then(data => {
-            if (data.statusCode == 200){
+            console.log(data)
+            if (data.body[0] == 'マッチング成功しました'){
               window.alert('マッチングに成功しました');
               location.reload();
-            };
+            }else if(data.body[0] == 'マッチング失敗しました'){
+              window.alert('マッチングに失敗しました、時間が合わない組み合わせです')
+            }
           })
         });
       });
@@ -222,7 +226,7 @@
         staff_end = $('#staff_end');
         for(var i in data.body.staff) {
             // <input type="checkbox" name="food" value="1">焼肉
-            var staff_checkbox_text = '<th class="border table-info border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].staff_id) + '></th>';   
+            var staff_checkbox_text = '<th class="border table-info border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].id) + '></th>';   
             var staff_name_text = '<td class="border table-info border-dark">' + data.body.staff[i].staff_name + '</td>';
             var staff_area_text = '<td class="border table-info border-dark">' + data.body.staff[i].area + '</td>';
             var staff_start_text = '<td class="border table-info border-dark">' + extractDate(data.body.staff[i].start) + '</td>';

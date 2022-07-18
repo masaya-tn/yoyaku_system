@@ -3,42 +3,212 @@
 <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>yoyaku_system</title>
 </head>
 <body>
+  <form name="yearform"> 
+    <select name="year">
+      <option value="">-</option>
+      <option value="2020">2020年</option>
+      <option value="2021">2021年</option>
+      <option value="2022">2022年</option>
+      <option value="2023">2023年</option>
+      <option value="2024">2024年</option>
+      <option value="2025">2025年</option>
+      <option value="2026">2026年</option>
+      <option value="2027">2027年</option>
+      <option value="2028">2028年</option>
+      <option value="2029">2029年</option>
+      <option value="2030">2030年</option>
+    </select>
+  </form>
+  <form name="monthform">
+    <select name="month">
+      <option value="">-</option>
+      <option value="01">1月</option>
+      <option value="02">2月</option>
+      <option value="03">3月</option>
+      <option value="04">4月</option>
+      <option value="05">5月</option>
+      <option value="06">6月</option>
+      <option value="07">7月</option>
+      <option value="08">8月</option>
+      <option value="09">9月</option>
+      <option value="10">10月</option>
+      <option value="11">11月</option>
+      <option value="12">12月</option>
+    </select>
+  </form>
+  <button id = "index-btn" class="btn btn-outline-success">確定</button>
+
+  <div class="result_tables">   
+    <table class="box-container">
+      <tr id="week_1">
+        <td>
+          
+        </td>
+      </tr>
+    </table> 
+
+    <table class="box-container">
+      <tr id="week_2">
+        
+      </tr>
+    </table> 
+
+    <table class="box-container">
+      <tr id="week_3">
+        
+      </tr>
+    </table> 
+
+    <table class="box-container">
+      <tr id="week_4">
+        
+      </tr>
+    </table> 
+
+    <table class="box-container">
+      <tr id="week_5">
+        
+      </tr>
+    </table> 
+  </div>
+
   <ul id="result_target">
     <!-- ここに出力 -->
   </ul>
 
   <script>
+    var btn = document.getElementById('index-btn');
+
+    btn.addEventListener('click', ()=>{
+      matching_result_list();
+    });
     
     const matching_result_list = () => {
+      const yearform = document.yearform.year;
+      const yearnum = yearform.selectedIndex;
+      const year = yearform.options[yearnum].value;
+      // フォームから月情報取得
+      const monthform = document.monthform.month;
+      const monthnum = monthform.selectedIndex;
+      const month = monthform.options[monthnum].value;
+
+      let parameter = year + month;
+      parameter = encodeURI(parameter);
       
-      let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/result";   
+      let request_url = "https://3fendtwomj.execute-api.ap-northeast-1.amazonaws.com/prod/result?param1=";   
+      request_url = request_url + parameter;
       
       fetch(request_url, { mode: "cors" })
       .then(response => response.json())
       .then(data => {
         // let output_label = document.getElementById("output_label");
         // output_label.innerText = data["body"][0]["area"]
-        console.log(data)
-        user_target = $('#user_list');
-        for(var i in data.body) {
-          var user_name_text = '<p>' + '利用者名:' + data.body[i].user_name +'</p>'
-          var staff_name_text = '<p>' + 'スタッフ名' + data.body[i].staff_name +'</p>'
-          var area_text = '<p>' + 'エリア' + data.body[i].area +'</p>'
-          var start_text = '<p>' + '開始時間' + data.body[i].start +'</p>'
-          var end_text = '<p>' + '終了時間' + data.body[i].end +'</p>'
-          $(result_target).append(user_name_text);
-          $(result_target).append(staff_name_text);
-          $(result_target).append(area_text);
-          $(result_target).append(start_text);
-          $(result_target).append(end_text);
-        }
+        console.log(data);
+
+        // テーブル展開
+        // 選択月の日数を取得
+        var last_day = get_last_day();
+        // 選択月の日付リスト作成
+        var days_of_month_list =  get_day_list(last_day);
+        
+        for (var i in days_of_month_list) {
+          // 何週目か取得
+          var week_num = get_week(i);
+          
+          // 曜日取得
+          var day = Number(i) + 1
+          var day_of_week = get_day_of_week(day);
+          var week_target = $(`#week_${week_num}`);
+          var table_flame_text = `<td><table id="day_${day}" class="table user_table"><tr id="user_checkbox"><td class="border border-dark" colspan="4">${day}</td></tr><tr id="user_checkbox"><td class="border border-dark" colspan="4">${day_of_week}</td>     </tr><tr id="user_checkbox"><td class="border border-dark">利用者名</td>     <td class="border border-dark">開始時間</td>  <td class="border border-dark">終了時間</td> <td class="border border-dark">支援者</td> </tr></table></td>`;
+          $(week_target).append(table_flame_text);
+        };
+
+        // データ記入
+        for (var i in data.body) {
+          var day = i;
+          day_table_target = $(`#day_${day}`);
+          console.log(data.body[i].length);
+          if (data.body[i].length) {
+            for (var j in data.body[i]) {
+              var day_table_text = '<tr><td class="border border-dark">' + 
+                                    data.body[i][j].user_name + '</td>' + 
+                                    '<td class="border border-dark">' + 
+                                    data.body[i][j].start + '</td>' + 
+                                    '<td class="border border-dark">' + 
+                                    data.body[i][j].end + '</td>' + 
+                                    '<td class="border border-dark">' + 
+                                    data.body[i][j].staff_name + 
+                                    '</td></tr>';
+              $(day_table_target).append(day_table_text);
+            }
+            
+          };
+        };
       });
     };
     
-    window.onload = matching_result_list;
+    function get_last_day(date) {
+      const yearform = document.yearform.year;
+      const yearnum = yearform.selectedIndex;
+      const year = yearform.options[yearnum].value;
+      // フォームから月情報取得
+      const monthform = document.monthform.month;
+      const monthnum = monthform.selectedIndex;
+      const month = monthform.options[monthnum].value;
+
+      // 12月検証
+      var date = new Date( Number(year), Number(month), 0 ) ;
+      var lastDay = date.getDate() ;
+      return lastDay
+    };
+
+    function get_day_list(n) {
+      var list = [];
+      i = 1
+      while (n > 0) {
+        list.push(i);
+        i += 1;
+        n -= 1;
+      };
+      return list
+    };
+
+    function get_week(i) {
+      var week = 0;
+      if (0 <= i && i <= 6) {
+        week = 1
+      } else if (7 <= i && i <= 13) {
+        week = 2
+      } else if (14 <= i && i <= 20) {
+        week = 3
+      } else if (21 <= i && i <= 27) {
+        week = 4
+      } else if (28 <= i) {
+        week = 5
+      }
+      return week
+    };
+
+    function get_day_of_week(day) {
+      const yearform = document.yearform.year;
+      const yearnum = yearform.selectedIndex;
+      const year = yearform.options[yearnum].value;
+      // フォームから月情報取得
+      const monthform = document.monthform.month;
+      const monthnum = monthform.selectedIndex;
+      const month = monthform.options[monthnum].value;
+
+      var date = new Date( Number(year), Number(month) - 1, day ) ;
+      var day_of_week = date.getDay() ;	
+      var day_of_week_str = [ "日", "月", "火", "水", "木", "金", "土" ][day_of_week] ;
+
+      return day_of_week_str
+    }
 
   </script>
 </body>
