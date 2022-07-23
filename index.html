@@ -90,38 +90,116 @@
             <td>
               <table class="table user_table">
                 <tr id="user_checkbox">
-                  <td class="border border-dark">選択</td>          
+                  <td class="border border-secondary">選択</td>          
                 </tr>
                 <tr id="user_name">
-                  <td class="border border-dark">利用者名</td>     
+                  <td class="border border-secondary">利用者名</td>     
                 </tr>
                 <tr id="user_area">
-                  <td class="border border-dark">目的地</td> 
+                  <td class="border border-secondary">目的地</td> 
                 </tr>  
-                <tr id="user_start">
-                  <td class="border border-dark">開始時間</td>  
+                <tr id="user_7h">
+                  <td class="border border-secondary">7時</td>       
                 </tr>
-                <tr id="user_end">
-                  <td class="border border-dark">終了時間</td>       
+                <tr id="user_8h">
+                  <td class="border border-secondary">8時</td>       
+                </tr>
+                <tr id="user_9h">
+                  <td class="border border-secondary">9時</td>       
+                </tr>
+                <tr id="user_10h">
+                  <td class="border border-secondary">10時</td>       
+                </tr>
+                <tr id="user_11h">
+                  <td class="border border-secondary">11時</td>       
+                </tr>
+                <tr id="user_12h">
+                  <td class="border border-secondary">12時</td>       
+                </tr>
+                <tr id="user_13h">
+                  <td class="border border-secondary">13時</td>       
+                </tr>
+                <tr id="user_14h">
+                  <td class="border border-secondary">14時</td>       
+                </tr>
+                <tr id="user_15h">
+                  <td class="border border-secondary">15時</td>       
+                </tr>
+                <tr id="user_16h">
+                  <td class="border border-secondary">16時</td>       
+                </tr>
+                <tr id="user_17h">
+                  <td class="border border-secondary">17時</td>       
+                </tr>
+                <tr id="user_18h">
+                  <td class="border border-secondary">18時</td>       
+                </tr>
+                <tr id="user_19h">
+                  <td class="border border-secondary">19時</td>       
+                </tr>
+                <tr id="user_20h">
+                  <td class="border border-secondary">20時</td>       
+                </tr>
+                <tr id="user_21h">
+                  <td class="border border-secondary">21時</td>       
                 </tr>
               </table>
             </td>
             <td>
               <table class="table staff_table">
                 <tr id="staff_checkbox">  
-                  <td class="border border-dark">選択</td>  
+                  <td class="border border-secondary">選択</td>  
                 </tr>
                 <tr id="staff_name">
-                  <td class="border border-dark">スタッフ名</td> 
+                  <td class="border border-secondary">スタッフ名</td> 
                 </tr>
                 <tr id="staff_area">
-                  <td class="border border-dark">勤務希望エリア</td> 
+                  <td class="border border-secondary">勤務希望エリア</td> 
                 </tr>  
-                <tr id="staff_start">
-                  <td class="border border-dark">勤務開始時間</td> 
+                <tr id="staff_7h">
+                  <td class="border border-secondary">7時</td>       
                 </tr>
-                <tr id="staff_end">    
-                  <td class="border border-dark">勤務終了時間</td>  
+                <tr id="staff_8h">
+                  <td class="border border-secondary">8時</td>       
+                </tr>
+                <tr id="staff_9h">
+                  <td class="border border-secondary">9時</td>       
+                </tr>
+                <tr id="staff_10h">
+                  <td class="border border-secondary">10時</td>       
+                </tr>
+                <tr id="staff_11h">
+                  <td class="border border-secondary">11時</td>       
+                </tr>
+                <tr id="staff_12h">
+                  <td class="border border-secondary">12時</td>       
+                </tr>
+                <tr id="staff_13h">
+                  <td class="border border-secondary">13時</td>       
+                </tr>
+                <tr id="staff_14h">
+                  <td class="border border-secondary">14時</td>       
+                </tr>
+                <tr id="staff_15h">
+                  <td class="border border-secondary">15時</td>       
+                </tr>
+                <tr id="staff_16h">
+                  <td class="border border-secondary">16時</td>       
+                </tr>
+                <tr id="staff_17h">
+                  <td class="border border-secondary">17時</td>       
+                </tr>
+                <tr id="staff_18h">
+                  <td class="border border-secondary">18時</td>       
+                </tr>
+                <tr id="staff_19h">
+                  <td class="border border-secondary">19時</td>       
+                </tr>
+                <tr id="staff_20h">
+                  <td class="border border-secondary">20時</td>       
+                </tr>
+                <tr id="staff_21h">
+                  <td class="border border-secondary">21時</td>       
                 </tr>
               </table>
             </td>
@@ -197,54 +275,72 @@
       });
 
       function createUserTable(data) {
-        user_checkbox = $('#user_checkbox');
-        user_name = $('#user_name');
-        user_area = $('#user_area');
-        user_start = $('#user_start');
-        user_end = $('#user_end');
-        for(var i in data.body.user) {
-            // <input type="checkbox" name="food" value="1">焼肉
-            var user_checkbox_text = '<th class="border table-success border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.user[i].id) + '></th>';   
-            var user_name_text = '<td class="border table-success border-dark">' + data.body.user[i].user_name + '</td>';
-            var user_area_text = '<td class="border table-success border-dark">' + data.body.user[i].area + '</td>';
-            var user_start_text = '<td class="border table-success border-dark">' + extractDate(data.body.user[i].start) + '</td>';
-            var user_end_text = '<td class="border table-success border-dark">' + extractDate(data.body.user[i].end) + '</td>';
+        for(let i in data.body.user) {
+            let start = extractDate(data.body.user[i].start);
+            let end = extractDate(data.body.user[i].end);
 
-            $(user_checkbox).append(user_checkbox_text);
-            $(user_name).append(user_name_text);
-            $(user_area).append(user_area_text);
-            $(user_start).append(user_start_text);
-            $(user_end).append(user_end_text);
+            let user_checkbox_td = '<th class="border table-success border-secondary"><input type="checkbox" name="reservation" value=' + String(data.body.user[i].id) + '></th>';   
+            let user_name_td = '<td class="border table-success border-secondary">' + data.body.user[i].user_name + '</td>';
+            let user_area_td = '<td class="border table-success border-secondary">' + data.body.user[i].area + '</td>';
+            let user_start_td = '<td class="border table-success border-secondary">' + start + '時</td>';
+            let user_end_td = '<td class="border table-success border-secondary">' + end + '時</td>';
+            let user_time_td;
+
+            $('#user_checkbox').append(user_checkbox_td);
+            $('#user_name').append(user_name_td);
+            $('#user_area').append(user_area_td);
+            $('#user_start').append(user_start_td);
+            $('#user_end').append(user_end_td);
+
+            // 希望時間帯のみ色を付ける
+            for(let time = 7; time <= 21; time++) {
+              if (time >= Number(start) && time <= Number(end)) {
+                user_time_td = '<td class="border table-success border_secondary"></td>';
+                $(`#user_${time}h`).append(user_time_td);
+              } else {
+                user_time_td = '<td class="border border-secondary"></td>';
+                $(`#user_${time}h`).append(user_time_td);
+              }
+            };
           }
       };
 
       function createStaffTable(data) {
-        staff_checkbox = $('#staff_checkbox');
-        staff_name = $('#staff_name');
-        staff_area = $('#staff_area');
-        staff_start = $('#staff_start');
-        staff_end = $('#staff_end');
-        for(var i in data.body.staff) {
-            // <input type="checkbox" name="food" value="1">焼肉
-            var staff_checkbox_text = '<th class="border table-info border-dark"><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].id) + '></th>';   
-            var staff_name_text = '<td class="border table-info border-dark">' + data.body.staff[i].staff_name + '</td>';
-            var staff_area_text = '<td class="border table-info border-dark">' + data.body.staff[i].area + '</td>';
-            var staff_start_text = '<td class="border table-info border-dark">' + extractDate(data.body.staff[i].start) + '</td>';
-            var staff_end_text = '<td class="border table-info border-dark">' + extractDate(data.body.staff[i].end) + '</td>';
+        for(let i in data.body.staff) {
+            let start = extractDate(data.body.staff[i].start)
+            let end = extractDate(data.body.staff[i].end)
+            let staff_checkbox_td = '<th class="border table-info border-secondary"><input type="checkbox" name="reservation" value=' + String(data.body.staff[i].id) + '></th>';   
+            let staff_name_td = '<td class="border table-info border-secondary">' + data.body.staff[i].staff_name + '</td>';
+            let staff_area_td = '<td class="border table-info border-secondary">' + data.body.staff[i].area + '</td>';
+            let staff_start_td = '<td class="border table-info border-secondary">' + start + '時</td>';
+            let staff_end_td = '<td class="border table-info border-secondary">' + end + '時</td>';
 
-            $(staff_checkbox).append(staff_checkbox_text);
-            $(staff_name).append(staff_name_text);
-            $(staff_area).append(staff_area_text);
-            $(staff_start).append(staff_start_text);
-            $(staff_end).append(staff_end_text);
+            $('#staff_checkbox').append(staff_checkbox_td);
+            $('#staff_name').append(staff_name_td);
+            $('#staff_area').append(staff_area_td);
+            $('#staff_start').append(staff_start_td);
+            $('#staff_end').append(staff_end_td);
+
+            // 希望時間帯のみ色を付ける
+            for(let time = 7; time <= 21; time++) {
+              if (time >= Number(start) && time <= Number(end)) {
+                staff_time_td = '<td class="border table-info border-secondary"></td>';
+
+                $(`#staff_${time}h`).append(staff_time_td);
+              } else {
+                staff_time_td = '<td class="border border-secondary"></td>';
+                $(`#staff_${time}h`).append(staff_time_td);
+              }
+            };
           }
       };
 
       function extractDate(date) {
         var time = date.substr(8);
-        time = time + '時';
         return time
       }
+
+      
 
       
     </script>
