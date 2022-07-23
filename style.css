@@ -29,3 +29,7 @@ button {
 .box-container{
   
 }
+
+.baseline {
+  vertical-align: baseline;
+ }
